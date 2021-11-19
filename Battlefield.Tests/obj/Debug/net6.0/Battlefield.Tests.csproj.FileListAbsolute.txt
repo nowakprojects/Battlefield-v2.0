@@ -1,0 +1,14 @@
+C:\Users\Sebix\Battlefield\Battlefield.Tests\bin\Debug\net6.0\Battlefield.Tests.deps.json
+C:\Users\Sebix\Battlefield\Battlefield.Tests\bin\Debug\net6.0\Battlefield.Tests.dll
+C:\Users\Sebix\Battlefield\Battlefield.Tests\bin\Debug\net6.0\ref\Battlefield.Tests.dll
+C:\Users\Sebix\Battlefield\Battlefield.Tests\bin\Debug\net6.0\Battlefield.Tests.pdb
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.csproj.AssemblyReference.cache
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.AssemblyInfoInputs.cache
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.AssemblyInfo.cs
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.dll
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\ref\Battlefield.Tests.dll
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.pdb
+C:\Users\Sebix\Battlefield\Battlefield.Tests\bin\Debug\net6.0\Battlefield.Tests.runtimeconfig.json
+C:\Users\Sebix\Battlefield\Battlefield.Tests\obj\Debug\net6.0\Battlefield.Tests.genruntimeconfig.cache

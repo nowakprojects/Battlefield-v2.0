@@ -8,12 +8,12 @@ namespace Battlefield.Core.Domain
 {
     public class Coordinates
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public readonly int X;
+        public readonly int Y;
         public Coordinates (int x,int y)
         {
-            X = X;
-            Y = Y;
+            X = x;
+            Y = y;
         }
     }
 }

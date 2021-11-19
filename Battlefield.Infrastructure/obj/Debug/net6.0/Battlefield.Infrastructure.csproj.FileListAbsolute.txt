@@ -1,0 +1,15 @@
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\bin\Debug\net6.0\Battlefield.Infrastructure.deps.json
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\bin\Debug\net6.0\Battlefield.Infrastructure.dll
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\bin\Debug\net6.0\ref\Battlefield.Infrastructure.dll
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\bin\Debug\net6.0\Battlefield.Infrastructure.pdb
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.AssemblyInfo.cs
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.dll
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\ref\Battlefield.Infrastructure.dll
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.pdb
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\bin\Debug\net6.0\Battlefield.Core.dll
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\bin\Debug\net6.0\Battlefield.Core.pdb
+C:\Users\Sebix\Battlefield\Battlefield.Infrastructure\obj\Debug\net6.0\Battlefield.Infrastructure.csproj.CopyComplete

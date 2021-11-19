@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battlefield.Core.Domain
+﻿namespace Battlefield.Core.Domain
 {
     public class Battlefield
     {
         private ISet<BattleUnit> _units = new HashSet<BattleUnit>();
 
-        public Tile[,]? TileMap { get; protected set; }
+        public Tile[,] TileMap { get; protected set; }
         public int Height { get; protected set; }
         public int Width { get; protected set; }
         public IEnumerable<BattleUnit> Units

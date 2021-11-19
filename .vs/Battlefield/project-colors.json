@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2b45a38d-950a-4e4f-bb0f-fd882a925ae4": {
+      "ProjectGuid": "2b45a38d-950a-4e4f-bb0f-fd882a925ae4",
+      "DisplayName": "Battlefield.Infrastructure",
+      "ColorIndex": 0
+    },
+    "63c68643-05e1-4365-9be1-3c3d514efc2d": {
+      "ProjectGuid": "63c68643-05e1-4365-9be1-3c3d514efc2d",
+      "DisplayName": "Battlefield.Core",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

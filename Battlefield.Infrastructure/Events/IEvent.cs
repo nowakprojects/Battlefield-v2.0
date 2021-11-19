@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Battlefield.Core.Domain
+namespace Battlefield.Infrastructure.Events
 {
-    public enum MonsterType
+    //Marker
+    public interface IEvent
     {
-        PIKEMAN,
-        ARCHER,
-        GRIFFIN,
     }
 }
