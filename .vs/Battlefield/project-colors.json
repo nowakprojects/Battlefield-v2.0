@@ -10,7 +10,17 @@
       "ProjectGuid": "63c68643-05e1-4365-9be1-3c3d514efc2d",
       "DisplayName": "Battlefield.Core",
       "ColorIndex": 1
+    },
+    "4cb1d2ce-61c7-45fe-aa42-3c9234787265": {
+      "ProjectGuid": "4cb1d2ce-61c7-45fe-aa42-3c9234787265",
+      "DisplayName": "Battlefield.Tests",
+      "ColorIndex": 2
+    },
+    "2d1e0348-fb10-4583-bafe-25673cbb0933": {
+      "ProjectGuid": "2d1e0348-fb10-4583-bafe-25673cbb0933",
+      "DisplayName": "Battlefield.Api",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 4
 }

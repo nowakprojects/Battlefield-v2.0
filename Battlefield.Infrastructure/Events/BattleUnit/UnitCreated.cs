@@ -4,8 +4,7 @@ using System;
 
 namespace Battlefield.Infrastructure.EventHandlers.BattleUnit
 {
-    public class UnitCreated : BattleEventBase
-    {
-        public Core.Domain.BattleUnit? Unit { get; set; }
-    }
+    public record UnitCreated(
+        Core.Domain.BattleUnit Unit,
+        Guid BattleId) : IEvent;
 }

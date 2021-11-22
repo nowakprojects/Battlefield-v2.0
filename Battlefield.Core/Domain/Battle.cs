@@ -1,8 +1,9 @@
 ﻿namespace Battlefield.Core.Domain
 {
-    public class Battlefield
+    public class Battle
     {
         private ISet<BattleUnit> _units = new HashSet<BattleUnit>();
+        public Guid Id { get; set; }
 
         public Tile[,] TileMap { get; protected set; }
         public int Height { get; protected set; }
@@ -12,7 +13,7 @@
             get { return _units; }
             set { _units = new HashSet<BattleUnit>(value); }
         }
-        public Battlefield()
+        public Battle()
         {
             Height = 14;
             Width = 30;

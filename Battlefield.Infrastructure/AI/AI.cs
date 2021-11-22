@@ -9,7 +9,7 @@ namespace Battlefield.Infrastructure.AI
 {
     public static class AI
     {
-        public async static Task UnitUpdateAsync(float dt, Battlefield.Core.Domain.Battlefield battlefield)
+        public async static Task UnitUpdateAsync(float dt, Battlefield.Core.Domain.Battle battlefield)
         {
             foreach(var unit in battlefield.Units)
             {
@@ -18,7 +18,7 @@ namespace Battlefield.Infrastructure.AI
             await Task.FromResult(Task.CompletedTask);
         }
 
-        private static BattleUnit? CalculateBestTargetFor(BattleUnit unit, Core.Domain.Battlefield battlefield)
+        private static BattleUnit? CalculateBestTargetFor(BattleUnit unit, Core.Domain.Battle battlefield)
         {
             double min = 9999;
             BattleUnit? result = null;

@@ -11,6 +11,12 @@ namespace Battlefield.Infrastructure.Events
             services.AddSingleton<IEventDispatcher, EventDispatcher>();
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var eventTypes = assemblies
+                .SelectMany(x => x.GetTypes())
+                .Where(x => x.IsClass && x.IsAssignableTo(typeof(IEventHandler<>)))
+                .ToArray();
+            
+            
             //services.Scan(s => s.FromAssemblies(assemblies)
             //    .AddClasses(c => c.AssignableTo(typeof(IEventHandler<>)))
             //    .AsImplementedInterfaces()

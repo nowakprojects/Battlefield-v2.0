@@ -9,6 +9,8 @@ namespace Battlefield.Core.Domain
         public UnitStatistic Statistic { get; set; }
         public ICreature Type { get; set; }
         public Coordinates Position { get; set; }
+        public TileSize Size { get; set; }
+        public Tile[,]? OccupiedTiles { get; set; }
         public BattleUnit? Target { get; set; }
         public IOrder Order { get; set; }
         public Player Owner { get; set; }
@@ -28,7 +30,9 @@ namespace Battlefield.Core.Domain
             };
             Type = new Griffin();
             Position = new Coordinates(0,0);
+            Size = new TileSize(1, 1);
             Target = null;
+            OccupiedTiles = null;
             Order = new WaitOrder();
             Owner = Player.BLUE;
             IsBig = true;

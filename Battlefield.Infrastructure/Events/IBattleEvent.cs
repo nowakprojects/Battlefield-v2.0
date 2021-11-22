@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Battlefield.Infrastructure.Events
 {
-    public interface IBattleEvent : IEvent
+    interface IBattleEvents : IEvent
     {
-        Core.Domain.Battlefield? Battlefield { get; set; }
+        Core.Domain.Battle Battlefield { get; set; }
     }
 }

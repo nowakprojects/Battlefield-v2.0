@@ -1,30 +1,21 @@
-﻿using Battlefield.Core.Domain;
-using Battlefield.Infrastructure.EventHandlers.BattleUnit;
+﻿using Battlefield.Infrastructure.EventHandlers.BattleUnit;
+using Battlefield.Infrastructure.Repositories;
 
 namespace Battlefield.Infrastructure.EventHandlers
 {
-    public class AddToBattlefieldCreatedUnit : IEventHandler<UnitCreated>
+    internal class AddToBattlefieldCreatedUnit : IEventHandler<UnitCreated>
     {
+        private readonly IBattlefiedRepository _battleRepository;
+
+        public AddToBattlefieldCreatedUnit(IBattlefiedRepository battleRepos)
+        {
+            _battleRepository = battleRepos;
+        }
         public async Task HandleAsync(UnitCreated @event)
         {
-            if(@event.Unit == null || @event.Battlefield == null)
-            {
-                return;
-            }
-            var pos = @event.Unit.Position;
-            if (pos == null)
-            {
-                return;
-            }
-            Tile? tile = @event.Battlefield.TileMap[pos.X,
-                                                   pos.Y];
-            if (tile == null)
-            {
-                return;
-            }
 
-            tile.Blocked = true;
-            tile.Unit = @event.Unit;
+            var battlefield = await _battleRepository.GetAsync(@event.BattleId);
+            battlefield.AddUnit(@event.Unit);
             await Task.FromResult(Task.CompletedTask);
         }
     }
