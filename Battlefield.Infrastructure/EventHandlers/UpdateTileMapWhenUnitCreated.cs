@@ -4,11 +4,11 @@ using Battlefield.Infrastructure.Repositories;
 
 namespace Battlefield.Infrastructure.EventHandlers
 {
-    internal class UpdateTileMapWhenUnitCreated : IEventHandler<UnitCreated>
+    public class UpdateTileMapWhenUnitCreated : IEventHandler<UnitCreated>
     {
-        private readonly IBattlefiedRepository _battleRepository;
+        private readonly IBattlefieldRepository _battleRepository;
 
-        public UpdateTileMapWhenUnitCreated(IBattlefiedRepository battleRepos)
+        public UpdateTileMapWhenUnitCreated(IBattlefieldRepository battleRepos)
         {
             _battleRepository = battleRepos;
         }

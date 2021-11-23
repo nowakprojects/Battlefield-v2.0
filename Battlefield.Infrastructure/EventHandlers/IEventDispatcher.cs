@@ -2,7 +2,7 @@
 
 namespace Battlefield.Infrastructure.EventHandlers
 {
-    internal interface IEventDispatcher
+    public interface IEventDispatcher
     {
         Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent;
     }

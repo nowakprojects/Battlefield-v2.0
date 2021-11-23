@@ -3,11 +3,11 @@ using Battlefield.Infrastructure.Repositories;
 
 namespace Battlefield.Infrastructure.EventHandlers
 {
-    internal class AddToBattlefieldCreatedUnit : IEventHandler<UnitCreated>
+    public class AddToBattlefieldCreatedUnit : IEventHandler<UnitCreated>
     {
-        private readonly IBattlefiedRepository _battleRepository;
+        private readonly IBattlefieldRepository _battleRepository;
 
-        public AddToBattlefieldCreatedUnit(IBattlefiedRepository battleRepos)
+        public AddToBattlefieldCreatedUnit(IBattlefieldRepository battleRepos)
         {
             _battleRepository = battleRepos;
         }

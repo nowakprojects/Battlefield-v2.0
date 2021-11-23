@@ -3,7 +3,7 @@
     public class Battle
     {
         private ISet<BattleUnit> _units = new HashSet<BattleUnit>();
-        public Guid Id { get; set; }
+        public Guid Id { get; protected set; }
 
         public Tile[,] TileMap { get; protected set; }
         public int Height { get; protected set; }
@@ -15,6 +15,7 @@
         }
         public Battle()
         {
+            Id = Guid.NewGuid();
             Height = 14;
             Width = 30;
             TileMap = new Tile[Height, Width];
