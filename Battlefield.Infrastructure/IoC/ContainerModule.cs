@@ -9,7 +9,7 @@ namespace Battlefield.Infrastructure.IoC
         {
             builder.RegisterModule<CommadModule>();
             builder.RegisterModule<EventModule>();
-
+            builder.RegisterModule<RepositoryModule>();
             base.Load(builder);
         }
     }

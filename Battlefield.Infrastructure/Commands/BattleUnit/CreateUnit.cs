@@ -3,7 +3,7 @@
 namespace Battlefield.Infrastructure.Commands.BattleUnit
 {
     public record CreateUnit(
-        Guid battleId,
+        Guid BattleId,
         Coordinates Position,
         ICreature Type,
         Player Owner) : ICommand;

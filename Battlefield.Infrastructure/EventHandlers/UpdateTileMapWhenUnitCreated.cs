@@ -1,5 +1,5 @@
 ﻿using Battlefield.Core.Domain;
-using Battlefield.Infrastructure.EventHandlers.BattleUnit;
+using Battlefield.Core.Events.BattleUnit;
 using Battlefield.Infrastructure.Repositories;
 
 namespace Battlefield.Infrastructure.EventHandlers
@@ -25,10 +25,10 @@ namespace Battlefield.Infrastructure.EventHandlers
             if (unit.OccupiedTiles == null)
                 unit.OccupiedTiles = new Tile[unit.Size.X, unit.Size.Y];
             var battle = await _battleRepository.GetAsync(@event.BattleId);
-            for(int y = 0; y < unit.Size.Y; y++)
-                for(int x = 0; x < unit.Size.X; x++)
+            for (int y = 0; y < unit.Size.Y; y++)
+                for (int x = 0; x < unit.Size.X; x++)
                 {
-                    var tile = battle.TileMap[pos.X+x,pos.Y+y];
+                    var tile = battle.TileMap[pos.X + x, pos.Y + y];
                     tile.Blocked = true;
                     tile.Unit = @event.Unit;
                     unit.OccupiedTiles[x, y] = tile;

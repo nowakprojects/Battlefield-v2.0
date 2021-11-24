@@ -1,10 +1,12 @@
-﻿namespace Battlefield.Core.Domain
+﻿using Battlefield.Core.Events;
+using Battlefield.Core.Events.BattleUnit;
+
+namespace Battlefield.Core.Domain
 {
     public class Battle
     {
         private ISet<BattleUnit> _units = new HashSet<BattleUnit>();
         public Guid Id { get; protected set; }
-
         public Tile[,] TileMap { get; protected set; }
         public int Height { get; protected set; }
         public int Width { get; protected set; }
@@ -28,6 +30,19 @@
             }
         }
 
+        public bool ContainsPlayer(Player owner)
+        {
+            return (owner.Equals(Player.GREEN) ||
+               owner.Equals(Player.BLUE) ||
+               owner.Equals(Player.RED));
+        }
+
+        public bool ContiansPos(Coordinates position)
+        {
+            return position.X < Width && position.Y < Height && 
+                position.X >= 0 && position.Y >= 0;
+        }
+
         public void AddUnit(BattleUnit unit)
         {
             if (unit == null)
@@ -49,6 +64,20 @@
                 throw new Exception($"Unit with type: {unit.Type} was not found.");
             }
             _units.Remove(unit);
+        }
+        
+        public IEvent CreateUnit(Coordinates pos, Player owner, ICreature type)
+        {
+            if (ContiansPos(pos))
+            {
+                throw new Exception("Invalid position");
+            }
+            if (ContainsPlayer(owner))
+            {
+                throw new Exception($"Player {owner.ToString()} not found.");
+            }
+            var unit = new BattleUnit(type, pos, owner);
+            return new UnitCreated(unit, Id);
         }
     }
 }

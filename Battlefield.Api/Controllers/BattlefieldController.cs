@@ -1,8 +1,8 @@
 ﻿using Battlefield.Core.Domain;
+using Microsoft.AspNetCore.Mvc;
+using Battlefield.Infrastructure.Repositories;
 using Battlefield.Infrastructure.Commands;
 using Battlefield.Infrastructure.Commands.BattleUnit;
-using Battlefield.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Battlefield.Api.Controllers
 {

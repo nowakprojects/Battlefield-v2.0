@@ -1,14 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Battlefield.Infrastructure.IoC;
-using Battlefield.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-// Add services to the container.
-builder.Services.AddSingleton<IBattlefieldRepository,InMemoryBattlefieldRepository>();
+// Add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,7 +19,6 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 });
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -37,3 +34,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }

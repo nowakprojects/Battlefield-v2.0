@@ -1,10 +1,9 @@
 ﻿using Moq;
 using Xunit;
-using Battlefield.Infrastructure.Repositories;
 using Battlefield.Core.Domain;
-using Battlefield.Infrastructure.EventHandlers.BattleUnit;
+using Battlefield.Infrastructure.Repositories;
+using Battlefield.Core.Events.BattleUnit;
 using Battlefield.Infrastructure.EventHandlers;
-using Autofac;
 
 namespace Battlefield.Tests;
 public class BattlefieldTests
@@ -12,12 +11,11 @@ public class BattlefieldTests
     [Fact]
     public async Task Test()
     {
-        var battleRepository = new Mock<IBattlefieldRepository>();
+        var battleRepository = new InMemoryBattlefieldRepository();
         var battle = new Battle();
-        await battleRepository.Object.AddAsync(battle);
+        await battleRepository.AddAsync(battle);
 
-        battleRepository.Verify(x => x.AddAsync(It.IsAny<Battle>()), Times.Once);
-        
+        Assert.True(await battleRepository.GetAsync(battle.Id) == battle);
     }
     [Fact]
     public async Task EventHandlersShouldWork()
@@ -34,7 +32,7 @@ public class BattlefieldTests
 
         await handler1.HandleAsync(@event);
         await handler2.HandleAsync(@event);
-
+        await Task.CompletedTask;
         Assert.True(battle.Units.First().Id == unit.Id);
         Assert.True(battle.TileMap[0,0].Unit == unit);
     }

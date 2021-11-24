@@ -13,7 +13,7 @@ namespace Battlefield.Infrastructure.Repositories
                 throw new Exception($"There is no Battle with id: {id}.");
             }
             await Task.CompletedTask;
-            return battle; 
+            return battle;
         }
 
         public async Task AddAsync(Battle battle)

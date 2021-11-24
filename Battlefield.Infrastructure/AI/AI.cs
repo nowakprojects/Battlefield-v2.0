@@ -9,20 +9,20 @@ namespace Battlefield.Infrastructure.AI
 {
     public static class AI
     {
-        public async static Task UnitUpdateAsync(float dt, Battlefield.Core.Domain.Battle battlefield)
+        public async static Task UnitUpdateAsync(float dt, Battle battlefield)
         {
-            foreach(var unit in battlefield.Units)
+            foreach (var unit in battlefield.Units)
             {
                 ;
             }
             await Task.FromResult(Task.CompletedTask);
         }
 
-        private static BattleUnit? CalculateBestTargetFor(BattleUnit unit, Core.Domain.Battle battlefield)
+        private static BattleUnit? CalculateBestTargetFor(BattleUnit unit, Battle battlefield)
         {
             double min = 9999;
             BattleUnit? result = null;
-            foreach( var u in battlefield.Units)
+            foreach (var u in battlefield.Units)
             {
                 if (u == unit || unit.Owner == u.Owner) continue;
 

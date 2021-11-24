@@ -1,4 +1,4 @@
-﻿using Battlefield.Infrastructure.Events;
+﻿using Battlefield.Core.Events;
 
 namespace Battlefield.Infrastructure.EventHandlers
 {

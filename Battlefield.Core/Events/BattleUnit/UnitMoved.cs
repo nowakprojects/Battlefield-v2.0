@@ -1,9 +1,9 @@
 ﻿using Battlefield.Core.Domain;
 
-namespace Battlefield.Infrastructure.Events.BattleUnit
+namespace Battlefield.Core.Events.BattleUnit
 {
     public record UnitMoved(
-        Core.Domain.BattleUnit Unit,
+        Domain.BattleUnit Unit,
         Coordinates From,
         Coordinates To) : IEvent;
 }

@@ -7,7 +7,7 @@ namespace Battlefield.Core.Domain
     {
         public Guid Id { get; set; }
         public UnitStatistic Statistic { get; set; }
-        public ICreature Type { get; set; }
+        public ICreature Type { get; protected set; }
         public Coordinates Position { get; set; }
         public TileSize Size { get; set; }
         public Tile[,]? OccupiedTiles { get; set; }
@@ -19,15 +19,8 @@ namespace Battlefield.Core.Domain
         public BattleUnit()
         {
             Id = Guid.NewGuid();
-            Statistic = new UnitStatistic
-            {
-                AttackDmg = 30,
-                MoveSpeed = 1.0f,
-                AttackSeed = 0.5f,
-                Hp = 100,
-                CanShoot = false,
-                Ammo = 0
-            };
+            Statistic = new UnitStatistic();
+            
             Type = new Griffin();
             Position = new Coordinates(0,0);
             Size = new TileSize(1, 1);
@@ -35,8 +28,21 @@ namespace Battlefield.Core.Domain
             OccupiedTiles = null;
             Order = new WaitOrder();
             Owner = Player.BLUE;
-            IsBig = true;
+        }
+        public BattleUnit(ICreature type, Coordinates pos, Player owner)
+        {
+            Id = Guid.NewGuid();
+            Statistic = new UnitStatistic();
+            Type = type;
+            Position = pos;
+            Size = new TileSize(1, 1);
+            Owner = owner;
+            Order = new WaitOrder();
+        }
 
+        public void ChangePos(Coordinates newPos)
+        {
+            
         }
 
     }
