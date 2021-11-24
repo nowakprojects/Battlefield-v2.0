@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Battlefield.Infrastructure.Repositories;
 using Battlefield.Infrastructure.Commands;
 using Battlefield.Infrastructure.Commands.BattleUnit;
+using Battlefield.Infrastructure.Commands.Battlefield;
 
 namespace Battlefield.Api.Controllers
 {
@@ -21,17 +22,33 @@ namespace Battlefield.Api.Controllers
             _battleRepo = battleRepo;
             _commandDispatcher = commandDispatcher;
         }
+
         [HttpGet]
         public async Task<IEnumerable<Battle>> GetAsync()
         {
-            return await _battleRepo.BrowseAsync();
+            return  await _battleRepo.BrowseAsync();
         }
-        [HttpPost("")]
-        public async Task<IActionResult> Post([FromBody] CreateUnit command)
+        
+        
+        [HttpGet("{battleId}")]
+        public async Task<IActionResult> Get(Guid battleId)
+        {
+            var battle = await _battleRepo.GetAsync(battleId);
+            if (battle == null)
+            {
+                return NotFound();
+            }
+            return new JsonResult(battle);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] CreateBattlefiled command)
         {
             await _commandDispatcher.DispatchAsync(command);
-            return Created($"battlefield/{command}", null);
+            return Created("battlefield/",null);
         }
-
+        
+        
+        
     }
 }

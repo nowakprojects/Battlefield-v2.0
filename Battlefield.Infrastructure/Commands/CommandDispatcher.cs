@@ -2,7 +2,7 @@
 
 namespace Battlefield.Infrastructure.Commands
 {
-    internal class CommandDispatcher : ICommandDispatcher
+    public class CommandDispatcher : ICommandDispatcher
     {
         private readonly IComponentContext _context;
         public CommandDispatcher(IComponentContext context)

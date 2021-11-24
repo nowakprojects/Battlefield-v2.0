@@ -4,18 +4,29 @@ using Battlefield.Core.Domain;
 using Battlefield.Infrastructure.Repositories;
 using Battlefield.Core.Events.BattleUnit;
 using Battlefield.Infrastructure.EventHandlers;
+using Battlefield.Infrastructure.Commands.Battlefield;
+using Battlefield.Infrastructure.Commands;
+using Autofac;
 
 namespace Battlefield.Tests;
 public class BattlefieldTests
 {
-    [Fact]
-    public async Task Test()
-    {
-        var battleRepository = new InMemoryBattlefieldRepository();
-        var battle = new Battle();
-        await battleRepository.AddAsync(battle);
+    private readonly IBattlefieldRepository _battlefieldRepository;
 
-        Assert.True(await battleRepository.GetAsync(battle.Id) == battle);
+    public BattlefieldTests()
+    {
+        _battlefieldRepository = new InMemoryBattlefieldRepository();
+    }
+
+    [Fact]
+    public async Task Commad_dispatcher_should_invoke_resolve_method()
+    {
+        var context = new Mock<IComponentContext>();
+        var dispatcher = new CommandDispatcher(context.Object);
+        var commad = new CreateBattlefiled("name");
+        await dispatcher.DispatchAsync<CreateBattlefiled>(commad);
+        context.Verify(context => context.Resolve<CreateBattlefieldHandler>(), Times.Once);
+        
     }
     [Fact]
     public async Task EventHandlersShouldWork()

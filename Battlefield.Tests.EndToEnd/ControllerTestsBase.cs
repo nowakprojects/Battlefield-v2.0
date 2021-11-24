@@ -3,6 +3,7 @@ using System.Text;
 using System;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using Battlefield.Infrastructure.DTO;
 
 namespace Battlefield.Tests.EndToEnd;
 
@@ -22,5 +23,12 @@ public abstract class ControllerTestsBase
     {
         var json = JsonConvert.SerializeObject(data);
         return new StringContent(json, Encoding.UTF8, "application/json");
+    }
+    protected async Task<BattleDto?> GetBattleAsync(Guid battleId)
+    {
+        var responce = await _client.GetAsync($"battlefield/{battleId}");
+        var responceString = await responce.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<BattleDto>(responceString);
+
     }
 }

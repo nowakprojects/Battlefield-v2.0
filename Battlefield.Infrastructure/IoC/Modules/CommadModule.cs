@@ -14,7 +14,7 @@ namespace Battlefield.Infrastructure.IoC.Modules
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<CommandDispatcher>()
-                .As<ICommandDispatcher>()
+                .As<CommandDispatcher>()
                 .InstancePerLifetimeScope();
 
             base.Load(builder);

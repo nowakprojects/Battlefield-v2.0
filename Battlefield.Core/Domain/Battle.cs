@@ -6,10 +6,12 @@ namespace Battlefield.Core.Domain
     public class Battle
     {
         private ISet<BattleUnit> _units = new HashSet<BattleUnit>();
+
+        private TileSize _tileSize;
         public Guid Id { get; protected set; }
         public Tile[,] TileMap { get; protected set; }
-        public int Height { get; protected set; }
-        public int Width { get; protected set; }
+        public int Height => _tileSize.Y;
+        public int Width => _tileSize.X;
         public IEnumerable<BattleUnit> Units
         {
             get { return _units; }
@@ -18,8 +20,7 @@ namespace Battlefield.Core.Domain
         public Battle()
         {
             Id = Guid.NewGuid();
-            Height = 14;
-            Width = 30;
+            _tileSize = new TileSize(23,14);
             TileMap = new Tile[Height, Width];
             for (int y = 0; y < Height; y++)
             {
