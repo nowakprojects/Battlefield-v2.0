@@ -1,5 +1,7 @@
 ﻿using Battlefield.Core.Domain;
 using Battlefield.Infrastructure.Commands.Battlefield;
+using Battlefield.Infrastructure.DTO;
+using Newtonsoft.Json;
 using System.Net;
 using Xunit;
 
@@ -18,19 +20,24 @@ public class BattleConttroler : ControllerTestsBase
         Assert.Equal(HttpStatusCode.Created, responce.StatusCode);
         
     }
+    [Fact]
     public async Task test()
     {
         var requset = new CreateBattlefiled("name");
         var payload = GetPayLoad(requset);
 
-        var responce = await _client.PostAsync("Battle", payload);
+        var responce = await _client.PostAsync("Battlefield", payload);
 
         Assert.Equal(HttpStatusCode.Created, responce.StatusCode);
 
-        responce = await _client.GetAsync("Battle");
+        responce = await _client.GetAsync("Battlefield");
         Assert.NotNull(responce);
-        var str = await responce.Content.ReadAsStringAsync();
-        Assert.Equal("Id = ", str);
+        var responceString = await responce.Content.ReadAsStringAsync();
+        var battles = JsonConvert.DeserializeObject<IEnumerable<BattleDto>>(responceString);
+        Assert.NotNull(battles);
+        var battleId = battles.First().Id;
+        var battle = await GetBattleAsync(battleId);
+        Assert.Equal(battleId, battle.Id);
     }
 }
 

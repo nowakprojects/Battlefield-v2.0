@@ -8,6 +8,7 @@ namespace Battlefield.Core.Domain
         private ISet<BattleUnit> _units = new HashSet<BattleUnit>();
 
         private TileSize _tileSize;
+        public string Name { get; set; }
         public Guid Id { get; protected set; }
         public Tile[,] TileMap { get; protected set; }
         public int Height => _tileSize.Y;
@@ -19,6 +20,7 @@ namespace Battlefield.Core.Domain
         }
         public Battle()
         {
+            Name = "";
             Id = Guid.NewGuid();
             _tileSize = new TileSize(23,14);
             TileMap = new Tile[Height, Width];

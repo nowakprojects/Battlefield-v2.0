@@ -4,6 +4,7 @@ using Battlefield.Infrastructure.Repositories;
 using Battlefield.Infrastructure.Commands;
 using Battlefield.Infrastructure.Commands.BattleUnit;
 using Battlefield.Infrastructure.Commands.Battlefield;
+using Battlefield.Infrastructure.DTO;
 
 namespace Battlefield.Api.Controllers
 {
@@ -24,9 +25,11 @@ namespace Battlefield.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Battle>> GetAsync()
+        public async Task<IEnumerable<BattleDto>> GetAsync()
         {
-            return  await _battleRepo.BrowseAsync();
+            var battles = await _battleRepo.BrowseAsync();
+            var battlesDto = (IEnumerable<BattleDto>)(BattleDto)battles.Select(x => x.Id).AsEnumerable();
+            return battlesDto;
         }
         
         
