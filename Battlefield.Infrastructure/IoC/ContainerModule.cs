@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Battlefield.Infrastructure.IoC.Modules;
+using Battlefield.Infrastructure.Mappers;
 
 namespace Battlefield.Infrastructure.IoC
 {
@@ -7,6 +8,8 @@ namespace Battlefield.Infrastructure.IoC
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterInstance(AtuoMapperConfig.Initializate())
+                .SingleInstance();
             builder.RegisterModule<CommadModule>();
             builder.RegisterModule<EventModule>();
             builder.RegisterModule<RepositoryModule>();

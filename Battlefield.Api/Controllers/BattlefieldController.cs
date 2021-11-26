@@ -5,6 +5,7 @@ using Battlefield.Infrastructure.Commands;
 using Battlefield.Infrastructure.Commands.BattleUnit;
 using Battlefield.Infrastructure.Commands.Battlefield;
 using Battlefield.Infrastructure.DTO;
+using AutoMapper;
 
 namespace Battlefield.Api.Controllers
 {
@@ -15,20 +16,25 @@ namespace Battlefield.Api.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IBattlefieldRepository _battleRepo;
         private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMapper _mapper;
 
         public BattlefieldController(ILogger<WeatherForecastController> logger,
-            IBattlefieldRepository battleRepo, ICommandDispatcher commandDispatcher)
+            IBattlefieldRepository battleRepo, ICommandDispatcher commandDispatcher,
+            IMapper mapper)
         {
             _logger = logger;
             _battleRepo = battleRepo;
             _commandDispatcher = commandDispatcher;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IEnumerable<BattleDto>> GetAsync()
         {
             var battles = await _battleRepo.BrowseAsync();
-            var battlesDto = (IEnumerable<BattleDto>)(BattleDto)battles.Select(x => x.Id).AsEnumerable();
+            var battlesDto = new HashSet<BattleDto>();
+            foreach (var battle in battles)
+                battlesDto.Add(_mapper.Map<BattleDto>(battle));
             return battlesDto;
         }
         
@@ -41,7 +47,7 @@ namespace Battlefield.Api.Controllers
             {
                 return NotFound();
             }
-            return new JsonResult(battle);
+            return new JsonResult(_mapper.Map<BattleDto>(battle));
         }
         
         [HttpPost]

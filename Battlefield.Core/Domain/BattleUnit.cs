@@ -5,11 +5,16 @@ namespace Battlefield.Core.Domain
 {
     public class BattleUnit
     {
-        public Guid Id { get; set; }
+        private float moveCooldown;
+        private float actualMoveCooldown;
+        private float attackCooldown;
+        private float actualAttackCooldown;
+
+        public Guid Id { get; protected set; }
         public UnitStatistic Statistic { get; set; }
         public ICreature Type { get; protected set; }
         public Coordinates Position { get; set; }
-        public TileSize Size { get; set; }
+        public TileSize Size { get; protected set; }
         public Tile[,]? OccupiedTiles { get; set; }
         public BattleUnit? Target { get; set; }
         public IOrder Order { get; set; }
