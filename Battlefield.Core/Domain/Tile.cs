@@ -4,7 +4,7 @@
     {
         public BattleUnit? Unit { get; set; }
         public bool Blocked { get; set; }
-        public Coordinates Coordinates { get; set; }
+        public Coordinates Coordinates { get; private set; }
 
         public Tile(Coordinates coor, bool block)
         {

@@ -1,9 +1,7 @@
 ﻿using Battlefield.Infrastructure.Commands;
 
-namespace Battlefield.Infrastructure.Commands.BattleUnit
+namespace Battlefield.Infrastructure.Commands.BattleUnit;
+public class DeleteUnit : ICommand
 {
-    public class DeleteUnit : ICommand
-    {
-        public Guid UnitId { get; set; }
-    }
+    public Guid UnitId { get; set; }
 }

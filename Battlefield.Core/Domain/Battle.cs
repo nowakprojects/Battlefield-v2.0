@@ -47,7 +47,7 @@ namespace Battlefield.Core.Domain
                 position.X >= 0 && position.Y >= 0;
         }
 
-        public void AddUnit(BattleUnit unit)
+        private void AddUnit(BattleUnit unit)
         {
             if (unit == null)
             {
@@ -60,16 +60,63 @@ namespace Battlefield.Core.Domain
             }
             _units.Add(unit);
         }
-        public void DeleteUnit(BattleUnit unit)
+        private void RemoveUnit(BattleUnit unit)
         {
             var u = Units.SingleOrDefault(x => x.Id == unit.Id);
-            if(u == null)
+            if(u is null)
             {
                 throw new Exception($"Unit with type: {unit.Type} was not found.");
             }
             _units.Remove(unit);
         }
-        
+        private void SetTileMapOnUnitCreating(BattleUnit unit)
+        {
+            if (unit.OccupiedTiles is null)
+                unit.OccupiedTiles = new Tile[unit.Size.X, unit.Size.Y];
+            for (int y = 0; y < unit.Size.Y; y++)
+                for (int x = 0; x < unit.Size.X; x++)
+                {
+                    var tile = TileMap[unit.Position.X + x, unit.Position.Y + y];
+                    if (tile.Blocked)
+                        throw new Exception($"Tile ({tile.Coordinates.X},{tile.Coordinates.Y}) is blocked.");
+                    tile.Blocked = true;
+                    tile.Unit = unit;
+                    unit.OccupiedTiles[x, y] = tile;
+                }
+        }
+        private void SetTileMapOnUnitDeleting(BattleUnit unit)
+        {
+            if (unit.OccupiedTiles is null)
+                return;
+            foreach (var tile in unit.OccupiedTiles)
+            {
+                tile.Blocked = false;
+                tile.Unit = null;
+            }
+        }
+        public BattleUnit? UnitOnTile(Coordinates pos)
+        {
+            return UnitOnTile(pos.X, pos.Y);
+        }
+        public BattleUnit? UnitOnTile(int x, int y)
+        {
+            if(!ContiansPos(new Coordinates(x,y)))
+                throw new Exception("Invalid position");
+            return TileMap[x, y].Unit;
+        }
+        public UnitDeleted DeleteUnit(Coordinates pos)
+        {
+            var unit = UnitOnTile(pos);
+            if (unit is null)
+                throw new Exception($"There is no Unit on tile ({pos.X},{pos.Y}).");
+            return DeleteUnit(unit);
+        }
+        public UnitDeleted DeleteUnit(BattleUnit unit)
+        {
+            SetTileMapOnUnitDeleting(unit);
+            RemoveUnit(unit);
+            return new UnitDeleted(unit);
+        }
         public UnitCreated CreateUnit(Coordinates pos, Player owner, ICreature type)
         {
             if (!ContiansPos(pos))
@@ -80,11 +127,10 @@ namespace Battlefield.Core.Domain
             {
                 throw new Exception($"Player {owner.ToString()} not found.");
             }
-            if (TileMap[pos.X, pos.Y].Blocked)
-            {
-                throw new Exception($"Position ({pos.X},{pos.Y}) is Blocked.");
-            }
+            
             var unit = new BattleUnit(type, pos, owner);
+            AddUnit(unit);
+            SetTileMapOnUnitCreating(unit);
             return new UnitCreated(unit, Id);
         }
     }

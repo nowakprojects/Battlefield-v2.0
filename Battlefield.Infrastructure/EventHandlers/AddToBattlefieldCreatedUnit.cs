@@ -14,8 +14,6 @@ namespace Battlefield.Infrastructure.EventHandlers
         public async Task HandleAsync(UnitCreated @event)
         {
 
-            var battlefield = await _battleRepository.GetAsync(@event.BattleId);
-            battlefield.AddUnit(@event.Unit);
             await Task.FromResult(Task.CompletedTask);
         }
     }
