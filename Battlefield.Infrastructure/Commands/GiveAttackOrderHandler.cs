@@ -19,7 +19,7 @@ public class GiveAttackOrderHandler : ICommandHandler<GiveAttackOrder>
     public async Task HandleAsync(GiveAttackOrder command)
     {
         var battle = await _battleRepo.GetAsync(command.BattleId);
-        var unit = battle.Units.FirstOrDefault(x => x.Id == command.BattleId);
+        var unit = battle.Units.FirstOrDefault(x => x.Id == command.UnitId);
         if (unit is null)
         {
             throw new Exception($"There is no Unit in '{command.BattleId}' in battle with '{command.BattleId}'.");
