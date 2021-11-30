@@ -1,4 +1,5 @@
-﻿using Battlefield.Core.Events;
+﻿using Battlefield.Core.Domain.Creatures;
+using Battlefield.Core.Events;
 using Battlefield.Core.Events.BattleUnit;
 
 namespace Battlefield.Core.Domain
@@ -18,9 +19,9 @@ namespace Battlefield.Core.Domain
             get { return _units; }
             set { _units = new HashSet<BattleUnit>(value); }
         }
-        public Battle()
+        public Battle(string name)
         {
-            Name = "";
+            Name = name;
             Id = Guid.NewGuid();
             _tileSize = new TileSize(23,14);
             TileMap = new Tile[Height, Width];
@@ -69,15 +70,19 @@ namespace Battlefield.Core.Domain
             _units.Remove(unit);
         }
         
-        public IEvent CreateUnit(Coordinates pos, Player owner, ICreature type)
+        public UnitCreated CreateUnit(Coordinates pos, Player owner, ICreature type)
         {
-            if (ContiansPos(pos))
+            if (!ContiansPos(pos))
             {
                 throw new Exception("Invalid position");
             }
-            if (ContainsPlayer(owner))
+            if (!ContainsPlayer(owner))
             {
                 throw new Exception($"Player {owner.ToString()} not found.");
+            }
+            if (TileMap[pos.X, pos.Y].Blocked)
+            {
+                throw new Exception($"Position ({pos.X},{pos.Y}) is Blocked.");
             }
             var unit = new BattleUnit(type, pos, owner);
             return new UnitCreated(unit, Id);

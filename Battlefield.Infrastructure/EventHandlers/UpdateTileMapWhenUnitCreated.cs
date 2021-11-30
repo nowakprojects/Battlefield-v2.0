@@ -29,6 +29,8 @@ namespace Battlefield.Infrastructure.EventHandlers
                 for (int x = 0; x < unit.Size.X; x++)
                 {
                     var tile = battle.TileMap[pos.X + x, pos.Y + y];
+                    if (tile.Blocked)
+                        throw new Exception($"Tile ({tile.Coordinates.X},{tile.Coordinates.Y}) is blocked.");
                     tile.Blocked = true;
                     tile.Unit = @event.Unit;
                     unit.OccupiedTiles[x, y] = tile;

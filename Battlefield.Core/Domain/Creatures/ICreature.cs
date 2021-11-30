@@ -1,8 +1,6 @@
-﻿
-namespace Battlefield.Core.Domain
+﻿namespace Battlefield.Core.Domain.Creatures;
+public interface ICreature
 {
-    public interface ICreature
-    {
-        // UnitStatistic GetBaseStatistic();
-    }
+    string Name { get; }
+    // UnitStatistic GetBaseStatistic();
 }

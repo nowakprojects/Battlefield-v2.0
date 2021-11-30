@@ -7,7 +7,7 @@ namespace Battlefield.Infrastructure.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(ContainerModule).Assembly;
+            var assembly = typeof(CommadModule).Assembly;
 
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<>))

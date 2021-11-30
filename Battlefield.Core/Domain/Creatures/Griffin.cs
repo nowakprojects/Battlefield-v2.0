@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battlefield.Core.Domain.Creatures
+﻿namespace Battlefield.Core.Domain.Creatures;
+public class Griffin : ICreature
 {
-    internal class Griffin : ICreature
-    {
-    }
+    public string Name => "Griffin";
 }
+

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battlefield.Core.Domain.Creatures
+﻿namespace Battlefield.Core.Domain.Creatures;
+public class Archer : ICreature
 {
-    internal class Archer :ICreature 
-    {
-    }
+    public string Name => "Archer";
 }

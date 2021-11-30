@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Battlefield.Tests.EndToEnd;
 
-public class BattleConttroler : ControllerTestsBase
+public class BattleController : ControllerTestsBase
 {
     [Fact]
     public async Task Creating_Battlefield_Should_Succeed()

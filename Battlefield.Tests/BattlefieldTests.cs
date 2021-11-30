@@ -32,7 +32,7 @@ public class BattlefieldTests
     public async Task EventHandlersShouldWork()
     {
         var battleRepository = new InMemoryBattlefieldRepository();
-        var battle = new Battle();
+        var battle = new Battle("name3");
         await battleRepository.AddAsync(battle);
         var unit = new BattleUnit();
         var @event = new UnitCreated(unit, battle.Id);

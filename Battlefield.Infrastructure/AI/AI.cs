@@ -14,6 +14,10 @@ namespace Battlefield.Infrastructure.AI
             foreach (var unit in battlefield.Units)
             {
                 ;
+                //make order
+                //move unit if
+                //make decision
+                // MoveToWorad
             }
             await Task.FromResult(Task.CompletedTask);
         }

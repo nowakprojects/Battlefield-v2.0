@@ -7,7 +7,7 @@ internal class EventModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        var assembly = typeof(ContainerModule).Assembly;
+        var assembly = typeof(EventModule).Assembly;
 
         builder.RegisterAssemblyTypes(assembly)
             .AsClosedTypesOf(typeof(IEventHandler<>))

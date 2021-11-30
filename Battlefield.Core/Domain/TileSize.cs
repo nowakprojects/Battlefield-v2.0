@@ -2,8 +2,8 @@
 
 public class TileSize
 {
-    public readonly int X;
-    public readonly int Y;
+    public int X { get; private set; }
+    public int Y { get; private set; }
     public TileSize(int x, int y)
     {
         X = x;

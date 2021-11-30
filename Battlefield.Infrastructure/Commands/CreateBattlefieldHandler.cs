@@ -17,7 +17,7 @@ public class CreateBattlefieldHandler : ICommandHandler<CreateBattlefiled>
     }
     public async Task HandleAsync(CreateBattlefiled command)
     {
-        var @event = new BattlefieldCreated(new Battle());
+        var @event = new BattlefieldCreated(new Battle(command.Name));
         await _eventDispatcher.PublishAsync(@event);
     }
 }

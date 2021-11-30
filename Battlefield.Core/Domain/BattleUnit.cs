@@ -45,9 +45,14 @@ namespace Battlefield.Core.Domain
             Order = new WaitOrder();
         }
 
+        public void SetOrder(IOrder order)
+        {
+            Order = order;
+        }
+
         public void ChangePos(Coordinates newPos)
         {
-            
+            Position = newPos;
         }
 
     }

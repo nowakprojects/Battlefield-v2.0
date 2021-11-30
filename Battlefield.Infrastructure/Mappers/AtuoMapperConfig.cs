@@ -12,6 +12,8 @@ public class AtuoMapperConfig
         {
             cfg.CreateMap<Battle, BattleDto>();
             cfg.CreateMap<Tile, TileDto>();
+            cfg.CreateMap<BattleUnit, BattleUnitDto>()
+                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.Type.Name));
         }).CreateMapper();
     }
 }

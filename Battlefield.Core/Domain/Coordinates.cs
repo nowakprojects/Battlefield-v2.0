@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battlefield.Core.Domain
+﻿namespace Battlefield.Core.Domain;
+public class Coordinates
 {
-    public class Coordinates
+    public int X { get; private set; }
+    public int Y { get; private set; }
+    public Coordinates(int x, int y)
     {
-        public readonly int X;
-        public readonly int Y;
-        public Coordinates (int x,int y)
-        {
-            X = x;
-            Y = y;
-        }
+        X = x;
+        Y = y;
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battlefield.Core.Domain.Orders
+﻿namespace Battlefield.Core.Domain.Orders;
+public class MoveOrder : IOrder
 {
-    internal class MoveOrder : IOrder
+    public Coordinates Destination { get; set; }
+    public MoveOrder(Coordinates dest)
     {
+        Destination = dest;
     }
 }

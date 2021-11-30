@@ -5,6 +5,12 @@ namespace Battlefield.Infrastructure.Repositories
     public class InMemoryBattlefieldRepository : IBattlefieldRepository
     {
         private static readonly ISet<Battle> _battles = new HashSet<Battle>();
+        public async Task<Battle?> GetAsync(string name)
+        {
+            var battle = _battles.SingleOrDefault(x => name == x.Name);
+            await Task.CompletedTask;
+            return battle;
+        }
         public async Task<Battle> GetAsync(Guid id)
         {
             var battle = _battles.SingleOrDefault(x => id == x.Id);
@@ -15,7 +21,7 @@ namespace Battlefield.Infrastructure.Repositories
             await Task.CompletedTask;
             return battle;
         }
-
+       
         public async Task AddAsync(Battle battle)
         {
             _battles.Add(battle);
@@ -29,5 +35,6 @@ namespace Battlefield.Infrastructure.Repositories
             _battles.Remove(battle);
             await Task.CompletedTask;
         }
+
     }
 }

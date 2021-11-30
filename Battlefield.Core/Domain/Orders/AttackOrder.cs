@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Battlefield.Core.Domain.Orders;
 
-namespace Battlefield.Core.Domain.Orders
+public class AttackOrder : IOrder
 {
-    internal class AttackOrder : IOrder
+    public BattleUnit Target { get; set; }
+
+    public AttackOrder(BattleUnit target)
     {
+        Target = target;
     }
 }
+

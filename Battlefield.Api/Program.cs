@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Battlefield.Infrastructure;
 using Battlefield.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+var dataInitializer = app.Services.GetService<IDataInitializer>();
+dataInitializer.SeedAsync();
 
 app.UseHttpsRedirection();
 

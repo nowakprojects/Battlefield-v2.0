@@ -10,9 +10,11 @@ namespace Battlefield.Infrastructure.IoC
         {
             builder.RegisterInstance(AtuoMapperConfig.Initializate())
                 .SingleInstance();
-            builder.RegisterModule<CommadModule>();
             builder.RegisterModule<EventModule>();
+            builder.RegisterModule<CommadModule>();
             builder.RegisterModule<RepositoryModule>();
+
+            builder.RegisterModule<DataInitializerModule>();
             base.Load(builder);
         }
     }
