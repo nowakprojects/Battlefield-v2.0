@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Battlefield.Infrastructure;
+using Battlefield.Infrastructure.EventHandlers;
 using Battlefield.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ builder.Services.AddSwaggerGen();
 // Call ConfigureContainer on the Host sub property 
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
-    builder.RegisterModule(new ContainerModule());
+    builder.RegisterModule(new ContainerModule(c => new EventDispatcher(c)));
 });
 
 var app = builder.Build();
