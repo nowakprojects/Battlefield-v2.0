@@ -7,6 +7,7 @@ using Battlefield.Infrastructure.EventHandlers;
 using Battlefield.Infrastructure.Commands.Battlefield;
 using Battlefield.Infrastructure.Commands;
 using Autofac;
+using Battlefield.Core.Domain.Creatures;
 
 namespace Battlefield.Tests;
 public class BattlefieldTests
@@ -29,22 +30,14 @@ public class BattlefieldTests
         
     }
     [Fact]
-    public async Task EventHandlersShouldWork()
+    public async Task Update_tileMap_after_create_creature_should_be_correct()
     {
         var battleRepository = new InMemoryBattlefieldRepository();
         var battle = new Battle("name3");
         await battleRepository.AddAsync(battle);
-        var unit = new BattleUnit();
-        var @event = new UnitCreated(unit, battle.Id);
-
-        var handler1 = new AddToBattlefieldCreatedUnit(battleRepository);
-        var handler2 = new UpdateTileMapWhenUnitCreated(battleRepository);
-
-
-        await handler1.HandleAsync(@event);
-        await handler2.HandleAsync(@event);
-        await Task.CompletedTask;
-        Assert.True(battle.Units.First().Id == unit.Id);
-        Assert.True(battle.TileMap[0,0].Unit == unit);
+        var @event = battle.CreateUnit(new Coordinates(4, 8), Player.BLUE, new Griffin());
+        Assert.ThrowsAny<Exception>(() => @event = battle.CreateUnit(new Coordinates(4, 8), Player.RED, new Griffin()));
+        Assert.NotNull(battle.Units.FirstOrDefault());
+        Assert.True(battle.UnitOnTile(4,8) == battle.Units.FirstOrDefault());
     }
 }

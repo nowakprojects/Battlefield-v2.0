@@ -24,7 +24,7 @@ namespace Battlefield.Infrastructure.Commands
         {
             var battle = await _battleRepo.GetAsync(command.BattleId);
             
-            var unitType = command.Type.ConvertStringToCreature();
+            ICreature unitType = command.Type.ConvertStringToCreature();
 
             var @event = battle.CreateUnit(new Coordinates(command.X,command.Y), command.Owner, unitType);
             
