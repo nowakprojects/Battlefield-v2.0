@@ -31,9 +31,8 @@ public class BattleUnitController : ControllerBase
         var battle = await _battleRepo.GetAsync(battleId);
         if (battle is null)
             return NotFound();
-        var unitsDto = new HashSet<BattleUnitDto>();
-        foreach (var unit in battle.Units)
-            unitsDto.Add(_mapper.Map<BattleUnitDto>(unit));
+
+        var unitsDto = battle.Units.Select(x => _mapper.Map<BattleUnitDto>(x));
         return new JsonResult(unitsDto);
     }
     [HttpGet("{battleId}/{unitId}")]
@@ -59,7 +58,7 @@ public class BattleUnitController : ControllerBase
         await _commandDispatcher.DispatchAsync(command);
         return Created($"creature/{command}", null);
     }
-    [HttpPut]
+    [HttpPost("{battleId}/attack")]
     public async Task<IActionResult> GiveOrder([FromBody] GiveAttackOrder command)
     {
         await _commandDispatcher.DispatchAsync(command);

@@ -1,5 +1,6 @@
 ﻿using Battlefield.Core.Domain.Creatures;
 using Battlefield.Core.Domain.Orders;
+using Battlefield.Core.Events.BattleUnit;
 
 namespace Battlefield.Core.Domain
 {
@@ -45,9 +46,10 @@ namespace Battlefield.Core.Domain
             Order = new WaitOrder();
         }
 
-        public void SetOrder(IOrder order)
+        public UnitOrderChanged GiveOrder(IOrder order)
         {
             Order = order;
+            return new UnitOrderChanged(Id, order);
         }
 
         public void ChangePos(Coordinates newPos)

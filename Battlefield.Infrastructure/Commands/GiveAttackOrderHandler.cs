@@ -31,7 +31,7 @@ public class GiveAttackOrderHandler : ICommandHandler<GiveAttackOrder>
             throw new Exception($"There is no Unit in '{command.BattleId}' in battle with '{command.TargetId}'.");
         }
 
-        unit.SetOrder(new AttackOrder(target)); // maybe set Order should return event?
+        unit.GiveOrder(new AttackOrder(target)); // maybe set Order should return event?
         var @event = new UnitOrderChanged(command.UnitId, new AttackOrder(target));
         await _eventDispatcher.PublishAsync(@event);
     }

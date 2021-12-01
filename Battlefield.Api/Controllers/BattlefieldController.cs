@@ -32,10 +32,7 @@ public class BattlefieldController : ControllerBase
     public async Task<IEnumerable<BattleDto>> GetAsync()
     {
         var battles = await _battleRepo.BrowseAsync();
-        var battlesDto = new HashSet<BattleDto>();
-        foreach (var battle in battles)
-            battlesDto.Add(_mapper.Map<BattleDto>(battle));
-        return battlesDto;
+        return battles.Select(b => _mapper.Map<BattleDto>(b));
     }
 
 
