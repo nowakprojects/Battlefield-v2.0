@@ -1,6 +1,7 @@
 ﻿using Autofac;
+using Battlefield.Infrastructure.Commands;
 
-namespace Battlefield.Infrastructure.Commands
+namespace Battlefield.Infrastructure.CommandHandlers
 {
     public class CommandDispatcher : ICommandDispatcher
     {

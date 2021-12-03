@@ -8,5 +8,10 @@ public class AttackOrder : IOrder
     {
         Target = target;
     }
+
+    public void ExecuteOrder(Battle battle, BattleUnit unit)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -2,6 +2,7 @@
 using Battlefield.Core.Domain.Creatures;
 using Battlefield.Core.Events;
 using Battlefield.Core.Events.BattleUnit;
+using Battlefield.Infrastructure.CommandHandlers;
 using Battlefield.Infrastructure.Commands.BattleUnit;
 using Battlefield.Infrastructure.EventHandlers;
 using Battlefield.Infrastructure.Extensions;

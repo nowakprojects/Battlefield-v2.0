@@ -1,5 +1,6 @@
 ﻿using Battlefield.Core.Domain.Creatures;
 using Battlefield.Core.Events;
+using Battlefield.Core.Events.Battlefield;
 using Battlefield.Core.Events.BattleUnit;
 
 namespace Battlefield.Core.Domain
@@ -14,6 +15,7 @@ namespace Battlefield.Core.Domain
         public Tile[,] TileMap { get; protected set; }
         public int Height => _tileSize.Y;
         public int Width => _tileSize.X;
+        public bool Started { get; private set; }
         public IEnumerable<BattleUnit> Units
         {
             get { return _units; }
@@ -22,6 +24,7 @@ namespace Battlefield.Core.Domain
         public Battle(string name)
         {
             Name = name;
+            Started = false;
             Id = Guid.NewGuid();
             _tileSize = new TileSize(23,14);
             TileMap = new Tile[Height, Width];
@@ -33,14 +36,27 @@ namespace Battlefield.Core.Domain
                 }
             }
         }
-
+        public BattleStarted StartBattle()
+        {
+            if (Started)
+                throw new Exception("Battle is allready started.");
+            return new BattleStarted(Id);
+        }
         public bool ContainsPlayer(Player owner)
         {
             return (owner.Equals(Player.GREEN) ||
                owner.Equals(Player.BLUE) ||
                owner.Equals(Player.RED));
         }
-
+        public BattleUnit GetUnitOrThrow(Guid unitId)
+        {
+            var unit = Units.FirstOrDefault(x => x.Id == unitId);
+            if (unit is null)
+            {
+                throw new Exception($"There is no Unit with '{unitId}' in battle with '{Id}'.");
+            }
+            return unit;
+        }
         public bool ContiansPos(Coordinates position)
         {
             return position.X < Width && position.Y < Height && 

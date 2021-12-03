@@ -9,11 +9,22 @@ namespace Battlefield.Infrastructure.AI
 {
     public static class AI
     {
+        public async static Task RunBattleAsync(Battle battlefield)
+        {
+            var timeAfter = DateTime.Now;
+            while (battlefield.Started)
+            {
+                var dt = DateTime.Now - timeAfter;
+
+                await UnitUpdateAsync(((float)dt.TotalSeconds), battlefield);
+                timeAfter = DateTime.Now;
+            }
+        }
         public async static Task UnitUpdateAsync(float dt, Battle battlefield)
         {
             foreach (var unit in battlefield.Units)
             {
-                ;
+                unit.UpdateCooldowns(dt);
                 //make order
                 //move unit if
                 //make decision

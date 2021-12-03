@@ -4,7 +4,7 @@ using Battlefield.Infrastructure.Commands.Battlefield;
 using Battlefield.Infrastructure.EventHandlers;
 using Battlefield.Infrastructure.Repositories;
 
-namespace Battlefield.Infrastructure.Commands;
+namespace Battlefield.Infrastructure.CommandHandlers.Battlefield;
 
 public class CreateBattlefieldHandler : ICommandHandler<CreateBattlefiled>
 {

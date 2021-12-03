@@ -8,4 +8,8 @@ public class Coordinates
         X = x;
         Y = y;
     }
+    public bool Equals(Coordinates coor)
+    {
+        return X == coor.X && Y == coor.Y;
+    }
 }

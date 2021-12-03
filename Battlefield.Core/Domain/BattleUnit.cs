@@ -1,5 +1,6 @@
 ﻿using Battlefield.Core.Domain.Creatures;
 using Battlefield.Core.Domain.Orders;
+using Battlefield.Core.Events;
 using Battlefield.Core.Events.BattleUnit;
 
 namespace Battlefield.Core.Domain
@@ -8,6 +9,12 @@ namespace Battlefield.Core.Domain
     {
         private float moveCooldown;
         private float actualMoveCooldown;
+
+        public bool CanMove()
+        {
+            return (actualMoveCooldown <= 0);
+        }
+
         private float attackCooldown;
         private float actualAttackCooldown;
 
@@ -17,6 +24,15 @@ namespace Battlefield.Core.Domain
         public Coordinates Position { get; set; }
         public TileSize Size { get; protected set; }
         public Tile[,]? OccupiedTiles { get; set; }
+
+        public void UpdateCooldowns(float dt)
+        {
+            if (actualMoveCooldown > 0)
+                actualMoveCooldown -= dt;
+            if (actualAttackCooldown > 0)
+                actualAttackCooldown -= dt;
+        }
+
         public BattleUnit? Target { get; set; }
         public IOrder Order { get; set; }
         public Player Owner { get; set; }
@@ -46,13 +62,15 @@ namespace Battlefield.Core.Domain
             Order = new WaitOrder();
         }
 
-        public UnitOrderChanged GiveOrder(IOrder order)
+        public IEnumerable<IEvent> GiveOrder(IOrder order)
         {
             Order = order;
-            return new UnitOrderChanged(Id, order);
+            var events = new List<IEvent>();
+            events.Add(new UnitOrderChanged(Id, order));
+            return events;
         }
-
-        public void ChangePos(Coordinates newPos)
+        
+        private void ChangePos(Coordinates newPos)
         {
             Position = newPos;
         }

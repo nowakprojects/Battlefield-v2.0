@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Battlefield.Infrastructure.Commands;
+using Battlefield.Infrastructure.CommandHandlers;
 
 namespace Battlefield.Infrastructure.IoC.Modules
 {

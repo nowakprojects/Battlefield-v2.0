@@ -2,12 +2,11 @@
 using Xunit;
 using Battlefield.Core.Domain;
 using Battlefield.Infrastructure.Repositories;
-using Battlefield.Core.Events.BattleUnit;
-using Battlefield.Infrastructure.EventHandlers;
 using Battlefield.Infrastructure.Commands.Battlefield;
-using Battlefield.Infrastructure.Commands;
 using Autofac;
 using Battlefield.Core.Domain.Creatures;
+using Battlefield.Infrastructure.CommandHandlers.Battlefield;
+using Battlefield.Infrastructure.CommandHandlers;
 
 namespace Battlefield.Tests;
 public class BattlefieldTests
