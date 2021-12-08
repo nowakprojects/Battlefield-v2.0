@@ -27,7 +27,8 @@ public class StartBattleHandler : ICommandHandler<StartBattle>
     {
         var battle = await _battleRepo.GetAsync(command.BattleId);
         var gameEngine = new GameEngine(_ticker, battle);
-        var @event = battle.StartBattle();
+        var @event = battle.StartBattle(); 
+        gameEngine.Enqueue(command);
         await _battleRepo.AddAsync(battle);
         await _gameEngines.AddAsync(gameEngine);
         await _eventDispatcher.PublishAsync(@event);

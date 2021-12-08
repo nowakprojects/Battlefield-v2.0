@@ -65,7 +65,6 @@ public class BattlefieldController : ControllerBase
     [HttpPost("StartAny")]
     public async Task<IActionResult> PostAsync()
     {
-        _timeTicker.OnTimeTick((() => {Console.WriteLine("Test123");}));
         var battle = await _battleRepo.GetAsync("name1");
         var battleId = battle.Id;
         var command = new StartBattle()

@@ -1,5 +1,7 @@
 ﻿using Battlefield.Core.Domain;
 using Battlefield.Core.Events;
+using Battlefield.Infrastructure.Commands;
+using Battlefield.Infrastructure.Commands.BattleUnit;
 using Battlefield.Infrastructure.EventHandlers;
 
 namespace Battlefield.Infrastructure.AI;
@@ -7,7 +9,9 @@ public class GameEngine
 {
     private readonly Battle _battlefield;
     public int TickCount = 0;
-
+    // kolejka command graczy, musi byc tez synchornizowana, bo wiele watkow sie dostanie do tej kolejki
+    private readonly Queue<ICommand> _queue = new();
+    
     public GameEngine(ITimeTicker timeTicker, Battle battlefield)
     {
         _battlefield = battlefield;
@@ -18,6 +22,12 @@ public class GameEngine
     {
         return _battlefield.Id;
     }
+
+    // przyjmuje komende gracza
+    public void Enqueue(ICommand command)
+    {
+        _queue.Enqueue(command);
+    }
     
     private IEnumerable<IEvent> RunBattleTick()
     {
@@ -25,6 +35,12 @@ public class GameEngine
         List<IEvent> events = new List<IEvent>();
         if (_battlefield.Started)
         {
+            var command = _queue.Dequeue();
+            if (command is GiveAttackOrder)
+            {
+                // attack 
+            }
+            
             var unitUpdateEvents = UnitUpdateAsync(100);
             foreach (var unitUpdateEvent in unitUpdateEvents)
             {
