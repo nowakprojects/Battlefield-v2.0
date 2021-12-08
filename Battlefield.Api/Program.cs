@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 // Call ConfigureContainer on the Host sub property 
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
-    builder.RegisterModule(new ContainerModule(c => new EventDispatcher(c)));
+    builder.RegisterModule(new ContainerModule(cc => new EventDispatcher(cc.Resolve<IComponentContext>())));
 });
 
 var app = builder.Build();

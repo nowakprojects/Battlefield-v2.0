@@ -17,9 +17,9 @@ public class BattleTest
         {
             // Given
             var builder = new ContainerBuilder();
-            builder.RegisterModule(new ContainerModule(c => new EventDispatcher(c)));
+            builder.RegisterModule(new ContainerModule(cc => new EventDispatcher(cc.Resolve<IComponentContext>())));
             var context = builder.Build();
-            // var commandDispatcher = context.Resolve<ICommandDispatcher>();
+            var commandDispatcher = context.Resolve<ICommandDispatcher>();
             var eventDispatcher = context.Resolve<EventDispatcher>();
             //
             // // When

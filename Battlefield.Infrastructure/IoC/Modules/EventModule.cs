@@ -20,9 +20,9 @@ internal class EventModule : Module
             .AsClosedTypesOf(typeof(IEventHandler<>))
             .InstancePerLifetimeScope();
 
-        builder.Register<IEventDispatcher>(c => _eventDispatcherProvider(c))
+        builder.Register<IEventDispatcher>(cc => _eventDispatcherProvider(cc.Resolve<IComponentContext>()))
             .As<IEventDispatcher>()
-            .InstancePerLifetimeScope();
+            .SingleInstance();
 
         base.Load(builder);
     }
