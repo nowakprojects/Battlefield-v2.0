@@ -21,7 +21,7 @@ namespace Battlefield.Core.Domain
         public Guid Id { get; protected set; }
         public UnitStatistic Statistic { get; set; }
         public ICreature Type { get; protected set; }
-        public Coordinates Position { get; set; }
+        public Coordinates Position { get; protected set; }
         public TileSize Size { get; protected set; }
         public Tile[,]? OccupiedTiles { get; set; }
 
@@ -69,8 +69,13 @@ namespace Battlefield.Core.Domain
             events.Add(new UnitOrderChanged(Id, order));
             return events;
         }
-        
-        private void ChangePos(Coordinates newPos)
+        public void resetMoveCooldown()
+        {
+            actualMoveCooldown = moveCooldown;
+        }
+
+
+        public void ChangePos(Coordinates newPos)
         {
             Position = newPos;
         }

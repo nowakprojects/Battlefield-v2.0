@@ -47,11 +47,29 @@ public class BattlefieldController : ControllerBase
         return new JsonResult(_mapper.Map<BattleDto>(battle));
     }
 
-    [HttpPost]
+    [HttpPost("Create")]
     public async Task<IActionResult> PostAsync([FromBody] CreateBattlefiled command)
     {
         await _commandDispatcher.DispatchAsync(command);
         return Created("battlefield/", null);
+    }
+    [HttpPost("Start")]
+    public async Task<IActionResult> PostAsync([FromBody] StartBattle command)
+    {
+        await _commandDispatcher.DispatchAsync(command);
+        return NoContent();
+    }
+    [HttpPost("StartAny")]
+    public async Task<IActionResult> PostAsync()
+    {
+        var battle = await _battleRepo.GetAsync("name1");
+        var battleId = battle.Id;
+        var command = new StartBattle()
+        {
+            BattleId = battleId
+        };
+        await _commandDispatcher.DispatchAsync(command);
+        return NoContent();
     }
 
 

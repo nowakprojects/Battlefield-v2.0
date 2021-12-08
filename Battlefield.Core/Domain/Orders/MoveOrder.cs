@@ -1,4 +1,6 @@
-﻿namespace Battlefield.Core.Domain.Orders;
+﻿using Battlefield.Core.Events;
+
+namespace Battlefield.Core.Domain.Orders;
 public class MoveOrder : IOrder
 {
     public Coordinates Destination { get; set; }
@@ -7,8 +9,14 @@ public class MoveOrder : IOrder
         Destination = dest;
     }
 
-    public void ExecuteOrder(Battle battle, BattleUnit unit)
+    public IEnumerable<IEvent> Execute(Battle battle, BattleUnit unit)
     {
+        var eventList = new List<IEvent>();
+        if (unit.Position.Equals(Destination))
+        {
+            return unit.GiveOrder(new WaitOrder());
+        }
+            
         if(unit.CanMove())
         {
             var pathfinder = new PathFinder.PathFinder(battle);
@@ -16,8 +24,11 @@ public class MoveOrder : IOrder
             if(path.IsReachable)
             {
                 var pos = path.GetNextStep();
-
+                var events = battle.MakeMoveUnit(unit, unit.Position, pos);
+                eventList.Union(events);
             }
         }
+
+        return eventList;
     }
 }

@@ -12,7 +12,8 @@ public class RunStartedGame : IEventHandler<BattleStarted>
     public async Task HandleAsync(BattleStarted @event)
     {
         var battle = await _battleRepository.GetAsync(@event.BattleId);
-        AI.AI.RunBattleAsync(battle);
+        var thread = new Thread(() => AI.AI.RunBattle(battle));
+        thread.Start();
     }
 
 }

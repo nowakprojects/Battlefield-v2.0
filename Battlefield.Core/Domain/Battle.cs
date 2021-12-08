@@ -40,6 +40,7 @@ namespace Battlefield.Core.Domain
         {
             if (Started)
                 throw new Exception("Battle is allready started.");
+            Started = true;
             return new BattleStarted(Id);
         }
         public bool ContainsPlayer(Player owner)
@@ -147,7 +148,17 @@ namespace Battlefield.Core.Domain
             var unit = new BattleUnit(type, pos, owner);
             AddUnit(unit);
             SetTileMapOnUnitCreating(unit);
-            return new UnitCreated(unit, Id);
+            return new UnitCreated(unit.Id, Id);
+        }
+        public IEnumerable<IEvent> MakeMoveUnit(BattleUnit unit, Coordinates from, Coordinates to)
+        {
+            var eventsList = new List<IEvent>();
+            SetTileMapOnUnitDeleting(unit);
+            unit.ChangePos(to);
+            unit.resetMoveCooldown();
+            eventsList.Add(new UnitMoved(Id, unit.Id, from, to));
+            SetTileMapOnUnitCreating(unit);
+            return eventsList;
         }
     }
 }

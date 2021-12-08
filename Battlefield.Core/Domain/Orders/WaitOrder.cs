@@ -1,8 +1,11 @@
-﻿namespace Battlefield.Core.Domain.Orders;
+﻿using Battlefield.Core.Events;
+
+namespace Battlefield.Core.Domain.Orders;
 public class WaitOrder : IOrder
 {
-    public void ExecuteOrder(Battle battle, BattleUnit unit)
+    public IEnumerable<IEvent> Execute(Battle battle, BattleUnit unit)
     {
-        throw new NotImplementedException();
+        var eventList = new List<IEvent>();
+        return eventList;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Battlefield.Core.Events.BattleUnit;
 public record UnitMoved(
-    Domain.BattleUnit Unit,
+    Guid BattleId,
+    Guid UnitId,
     Coordinates From,
     Coordinates To) : IEvent;
