@@ -5,9 +5,9 @@ using Battlefield.Core.Events.BattleUnit;
 using Battlefield.Infrastructure.CommandHandlers;
 using Battlefield.Infrastructure.Commands.BattleUnit;
 using Battlefield.Infrastructure.EventHandlers;
-using Battlefield.Infrastructure.Extensions;
 using Battlefield.Infrastructure.Repositories;
 using System.Reflection;
+using Battlefield.Core.Extensions;
 
 namespace Battlefield.Infrastructure.Commands
 {

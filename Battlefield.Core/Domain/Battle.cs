@@ -2,6 +2,7 @@
 using Battlefield.Core.Events;
 using Battlefield.Core.Events.Battlefield;
 using Battlefield.Core.Events.BattleUnit;
+using Battlefield.Core.Extensions;
 
 namespace Battlefield.Core.Domain
 {
@@ -67,6 +68,9 @@ namespace Battlefield.Core.Domain
             {
                 case BattleStarted battleStarted:
                     Apply(battleStarted);
+                    break;
+                case UnitCreated unitCreated:
+                    Apply(unitCreated);
                     break;
                 default: throw new ArgumentException("Unsupported event!");
             };
@@ -180,11 +184,18 @@ namespace Battlefield.Core.Domain
                 throw new Exception($"Player {owner.ToString()} not found.");
             }
             
-            var unit = new BattleUnit(type, pos, owner);
+            var @event = new UnitCreated(Guid.NewGuid(), Id, pos, type.Name, owner);
+            Apply(@event);
+            return @event;
+        }
+
+        private void Apply(UnitCreated @event)
+        {
+            var unit = new BattleUnit(@event.UnitId, @event.UnitType.ConvertStringToCreature(), @event.Coordinates, @event.Owner);
             AddUnit(unit);
             SetTileMapOnUnitCreating(unit);
-            return new UnitCreated(unit.Id, Id);
         }
+        
         public IEnumerable<IEvent> MakeMoveUnit(BattleUnit unit, Coordinates from, Coordinates to)
         {
             var eventsList = new List<IEvent>();

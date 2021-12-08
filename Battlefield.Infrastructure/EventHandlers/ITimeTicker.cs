@@ -76,7 +76,7 @@ public class TimeTickBackgroundService : IHostedService
         {
             while (_ticking)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(200);
                 _timeTicker.Tick();
             }
         }).Start();

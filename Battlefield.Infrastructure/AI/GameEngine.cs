@@ -6,6 +6,7 @@ namespace Battlefield.Infrastructure.AI;
 public class GameEngine
 {
     private readonly Battle _battlefield;
+    public int TickCount = 0;
 
     public GameEngine(ITimeTicker timeTicker, Battle battlefield)
     {
@@ -20,6 +21,7 @@ public class GameEngine
     
     private IEnumerable<IEvent> RunBattleTick()
     {
+        TickCount++;
         List<IEvent> events = new List<IEvent>();
         if (_battlefield.Started)
         {

@@ -1,6 +1,8 @@
 using Battlefield.Core.Domain;
+using Battlefield.Core.Domain.Creatures;
 using Battlefield.Core.Events;
 using Battlefield.Core.Events.Battlefield;
+using Battlefield.Core.Events.BattleUnit;
 using FluentAssertions;
 
 namespace Battlefield.Tests;
@@ -28,9 +30,11 @@ public class BattleTest
     {
         // Given
         var battleId = Guid.NewGuid();
+        var unitId = Guid.NewGuid();
         var @events = new List<IEvent>
         {
-            new BattleStarted(battleId, "name")
+            new BattleStarted(battleId, "name"),
+            new UnitCreated(unitId, battleId, new Coordinates(1,1),"Archer", Player.RED)
         };
         
         // When
@@ -40,6 +44,7 @@ public class BattleTest
         battle.Id.Should().Be(battleId);
         battle.Name.Should().Be("name");
         battle.Started.Should().BeTrue();
+        battle.Units.ToList().Should().Contain(new BattleUnit(unitId, new Archer(), new Coordinates(1, 1), Player.RED));
     }
     
     [Fact]

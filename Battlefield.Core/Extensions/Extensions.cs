@@ -1,6 +1,6 @@
 ﻿using Battlefield.Core.Domain.Creatures;
 
-namespace Battlefield.Infrastructure.Extensions;
+namespace Battlefield.Core.Extensions;
 public static class Extensions
 {
     public static ICreature ConvertStringToCreature(this string name)

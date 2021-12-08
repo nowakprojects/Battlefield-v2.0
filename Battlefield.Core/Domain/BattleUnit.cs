@@ -51,9 +51,9 @@ namespace Battlefield.Core.Domain
             Order = new WaitOrder();
             Owner = Player.BLUE;
         }
-        public BattleUnit(ICreature type, Coordinates pos, Player owner)
+        public BattleUnit(Guid id, ICreature type, Coordinates pos, Player owner)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             Statistic = new UnitStatistic();
             Type = type;
             Position = pos;
@@ -80,5 +80,22 @@ namespace Battlefield.Core.Domain
             Position = newPos;
         }
 
+        protected bool Equals(BattleUnit other)
+        {
+            return Id.Equals(other.Id);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BattleUnit)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
