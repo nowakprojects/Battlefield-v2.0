@@ -13,8 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//var timeTicker = new EventDispatcherTimeTicker(new TimeTicker(), new EventDispatcher());
 var timeTicker = new TimeTicker();
-timeTicker.OnTimeTick(() => Console.WriteLine("Time tick!"));
 builder.Services.AddSingleton<ITimeTicker>(timeTicker);
 builder.Services.AddHostedService<TimeTickBackgroundService>();
 

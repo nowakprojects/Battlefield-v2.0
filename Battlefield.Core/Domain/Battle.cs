@@ -21,11 +21,13 @@ namespace Battlefield.Core.Domain
             get { return _units; }
             set { _units = new HashSet<BattleUnit>(value); }
         }
-        public Battle(string name)
+        
+        // todo: change name to id
+        public Battle(string name, Guid? id = null)
         {
             Name = name;
             Started = false;
-            Id = Guid.NewGuid();
+            Id = id ?? Guid.NewGuid();
             _tileSize = new TileSize(23,14);
             TileMap = new Tile[Height, Width];
             for (int y = 0; y < Height; y++)
@@ -36,13 +38,46 @@ namespace Battlefield.Core.Domain
                 }
             }
         }
+
+        public static Battle Load(Guid id, IEnumerable<IEvent> events)
+        {
+            var battle = new Battle("How to pass name?", id);
+            foreach (var @event in events)
+            {
+                battle.Apply(@event);
+            }
+
+            return battle;
+        }
+        
         public BattleStarted StartBattle()
         {
             if (Started)
-                throw new Exception("Battle is allready started.");
-            Started = true;
-            return new BattleStarted(Id);
+            {
+                throw new Exception("Battle is already started.");
+            }
+            var @event = new BattleStarted(Id, Name);
+            Apply(@event);
+            return @event;
         }
+
+        private void Apply(IEvent @event)
+        {
+            switch(@event)
+            {
+                case BattleStarted battleStarted:
+                    Apply(battleStarted);
+                    break;
+                default: throw new ArgumentException("Unsupported event!");
+            };
+        }
+        
+        private void Apply(BattleStarted @event)
+        {
+            Name = @event.Name;
+            Started = true;
+        }
+        
         public bool ContainsPlayer(Player owner)
         {
             return (owner.Equals(Player.GREEN) ||

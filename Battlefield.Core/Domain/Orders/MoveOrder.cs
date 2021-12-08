@@ -25,7 +25,10 @@ public class MoveOrder : IOrder
             {
                 var pos = path.GetNextStep();
                 var events = battle.MakeMoveUnit(unit, unit.Position, pos);
-                eventList.Union(events);
+                foreach (var @event in events)
+                {
+                    eventList.Add(@event);   
+                }
             }
         }
 

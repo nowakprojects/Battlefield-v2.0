@@ -1,19 +1,16 @@
 ﻿using Battlefield.Core.Domain;
+using Battlefield.Core.Events;
 using Battlefield.Infrastructure.EventHandlers;
 
 namespace Battlefield.Infrastructure.AI;
 public class GameEngine
 {
-    private IEventDispatcher? _dispatcher { get; set; }
-    private ITimeTicker _timeTicker;
     private readonly Battle _battlefield;
 
-    public GameEngine(ITimeTicker timeTicker, IEventDispatcher? dispatcher, Battle battlefield)
+    public GameEngine(ITimeTicker timeTicker, Battle battlefield)
     {
-        _timeTicker = timeTicker;
         _battlefield = battlefield;
-        _dispatcher = dispatcher;
-        _timeTicker.OnTimeTick(RunBattleTick);
+        timeTicker.OnTimeTick(RunBattleTick);
     }
 
     public Guid BattleGuid()
@@ -21,26 +18,34 @@ public class GameEngine
         return _battlefield.Id;
     }
     
-    public void RunBattleTick()
+    private IEnumerable<IEvent> RunBattleTick()
     {
+        List<IEvent> events = new List<IEvent>();
         if (_battlefield.Started)
         {
-            UnitUpdateAsync(100);
+            var unitUpdateEvents = UnitUpdateAsync(100);
+            foreach (var unitUpdateEvent in unitUpdateEvents)
+            {
+                    events.Add(unitUpdateEvent);
+            }
             Console.WriteLine("In battle tick");
         }
+
+        return events;
     }
-    private void UnitUpdateAsync(float dt)
+    private IEnumerable<IEvent> UnitUpdateAsync(float dt)
     {
-        foreach (var unit in _battlefield.Units)
+        return _battlefield.Units.Select(unit =>
         {
             unit.UpdateCooldowns(dt);
-            unit.Order.Execute(_battlefield, unit);
+            var events = unit.Order.Execute(_battlefield, unit);
+            return events;
             //make order
             //move unit if
             //make decision
             // MoveToWorad
             //_dispatcher.PublishAsync()
-        }
+        }).Aggregate(new List<IEvent>(), (list, events) => list.Union(events).ToList());
     }
 
     private BattleUnit? CalculateBestTargetFor(BattleUnit unit)

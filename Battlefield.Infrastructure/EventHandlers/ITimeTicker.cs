@@ -1,3 +1,4 @@
+using Battlefield.Core.Events;
 using Microsoft.Extensions.Hosting;
 
 namespace Battlefield.Infrastructure.EventHandlers;
@@ -5,61 +6,56 @@ namespace Battlefield.Infrastructure.EventHandlers;
 public interface ITimeTicker
 {
     
-    void OnTimeTick(Action callback);
+    void OnTimeTick(Func<IEnumerable<IEvent>> callback);
     void Tick();
 }
-//
-// class SystemTimeProvider : ITimeProvider
-// {
-//     private readonly int _tickMillis;
-//
-//     private List<Action> callbacks = new();
-//
-//     public SystemTimeProvider(int tickMillis)
-//     {
-//         _tickMillis = tickMillis;
-//         Start();
-//     }
-//     
-//     private void Start()
-//     {
-//         
-//         var tickLoop = () =>
-//         {
-//             while (true)
-//             {
-//                 Tick();
-//                 Thread.Sleep(_tickMillis);
-//             }
-//         };
-//         var thread = new Thread(() => tickLoop);
-//         thread.Start();
-//     }
-//     
-//     private void Tick()
-//     {
-//         callbacks.ForEach(a => a.Invoke());
-//     }
-//     
-//     public void OnTimeTick(Action callback)
-//     {
-//         callbacks.Add(callback);
-//     }
-// }
+
 
 public class TimeTicker : ITimeTicker
 {
     
-    private List<Action> callbacks = new();
+    private readonly List<Func<IEnumerable<IEvent>>> _callbacks = new();
     
     public void Tick()
     {
-        callbacks.ForEach(a => a.Invoke());
+        _callbacks.ForEach(a => a.Invoke());
     }
     
-    public void OnTimeTick(Action callback)
+    public void OnTimeTick(Func<IEnumerable<IEvent>> callback)
     {
-        callbacks.Add(callback);
+        _callbacks.Add(callback);
+    }
+}
+
+// todo: sprobowac zrozumiec
+public class EventDispatcherTimeTicker : ITimeTicker
+{
+    private readonly ITimeTicker _timeTicker;
+    private readonly IEventDispatcher _eventDispatcher;
+
+    public EventDispatcherTimeTicker(ITimeTicker timeTicker, IEventDispatcher eventDispatcher)
+    {
+        _timeTicker = timeTicker;
+        _eventDispatcher = eventDispatcher;
+    }
+
+    public void Tick()
+    {
+        _timeTicker.Tick();
+    }
+
+    public void OnTimeTick(Func<IEnumerable<IEvent>> callback)
+    {
+        _timeTicker.OnTimeTick(() =>
+        {
+            var tickEvents = callback().ToList();
+            foreach (var tickEvent in tickEvents)
+            {
+                _eventDispatcher.PublishAsync(tickEvent);
+            }
+
+            return tickEvents;
+        });
     }
 }
 
