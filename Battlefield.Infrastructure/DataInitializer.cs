@@ -11,14 +11,12 @@ public class DataInitializer : IDataInitializer
 {
     private readonly IBattlefieldRepository _battleRepo;
     private readonly ICommandDispatcher _dispatcher;
-    private readonly IEventDispatcher _eventDistpatcher;
 
     public DataInitializer(IBattlefieldRepository battleRepo,
-        ICommandDispatcher dispatcher, IEventDispatcher eventDispatcher)
+        ICommandDispatcher dispatcher)
     {
         _battleRepo = battleRepo;
         _dispatcher = dispatcher;
-        _eventDistpatcher = eventDispatcher;
     }
     public async Task SeedAsync()
     {
@@ -35,6 +33,5 @@ public class DataInitializer : IDataInitializer
             await _dispatcher.DispatchAsync(command3);
             await _dispatcher.DispatchAsync(command4);
         }
-        AI.AI._dispatcher = _eventDistpatcher;
     }
 }

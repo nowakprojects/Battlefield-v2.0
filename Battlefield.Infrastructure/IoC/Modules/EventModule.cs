@@ -11,11 +11,11 @@ internal class EventModule : Module
 
         builder.RegisterAssemblyTypes(assembly)
             .AsClosedTypesOf(typeof(IEventHandler<>))
-            .InstancePerLifetimeScope();
+            .SingleInstance();
 
         builder.RegisterType<EventDispatcher>()
             .As<IEventDispatcher>()
-            .InstancePerLifetimeScope();
+            .SingleInstance();
 
         base.Load(builder);
     }

@@ -9,5 +9,9 @@ public class RepositoryModule : Module
         builder.RegisterType<InMemoryBattlefieldRepository>()
            .As<IBattlefieldRepository>()
            .SingleInstance();
+        
+        builder.RegisterType<InMemoryGameEngineMemoryCache>()
+            .As<IGameEnginesMemoryCache>()
+            .SingleInstance();
     }
 }

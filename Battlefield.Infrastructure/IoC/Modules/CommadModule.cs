@@ -11,11 +11,11 @@ namespace Battlefield.Infrastructure.IoC.Modules
 
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<>))
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<CommandDispatcher>()
                 .As<ICommandDispatcher>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             base.Load(builder);
         }

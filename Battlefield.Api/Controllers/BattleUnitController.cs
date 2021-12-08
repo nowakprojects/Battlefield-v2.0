@@ -16,8 +16,10 @@ public class BattleUnitController : ControllerBase
     private readonly ICommandDispatcher _commandDispatcher;
     private readonly IMapper _mapper;
 
-    public BattleUnitController(ILogger<WeatherForecastController> logger,
-        IBattlefieldRepository battleRepo, ICommandDispatcher commandDispatcher,
+    public BattleUnitController(
+        ILogger<WeatherForecastController> logger,
+        IBattlefieldRepository battleRepo, 
+        ICommandDispatcher commandDispatcher,
         IMapper mapper)
     {
         _logger = logger;
@@ -25,6 +27,7 @@ public class BattleUnitController : ControllerBase
         _commandDispatcher = commandDispatcher;
         _mapper = mapper;
     }
+    
     [HttpGet("{battleId}")]
     public async Task<IActionResult> GetAsync(Guid battleId)
     {

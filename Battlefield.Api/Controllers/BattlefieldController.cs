@@ -6,6 +6,7 @@ using Battlefield.Infrastructure.Commands.Battlefield;
 using Battlefield.Infrastructure.DTO;
 using AutoMapper;
 using Battlefield.Infrastructure.CommandHandlers;
+using Battlefield.Infrastructure.EventHandlers;
 
 namespace Battlefield.Api.Controllers;
 
@@ -17,15 +18,17 @@ public class BattlefieldController : ControllerBase
     private readonly IBattlefieldRepository _battleRepo;
     private readonly ICommandDispatcher _commandDispatcher;
     private readonly IMapper _mapper;
+    private readonly ITimeTicker _timeTicker;
 
     public BattlefieldController(ILogger<WeatherForecastController> logger,
         IBattlefieldRepository battleRepo, ICommandDispatcher commandDispatcher,
-        IMapper mapper)
+        IMapper mapper, ITimeTicker timeTicker)
     {
         _logger = logger;
         _battleRepo = battleRepo;
         _commandDispatcher = commandDispatcher;
         _mapper = mapper;
+        _timeTicker = timeTicker;
     }
 
     [HttpGet("")]
@@ -62,6 +65,7 @@ public class BattlefieldController : ControllerBase
     [HttpPost("StartAny")]
     public async Task<IActionResult> PostAsync()
     {
+        _timeTicker.OnTimeTick((() => {Console.WriteLine("Test123");}));
         var battle = await _battleRepo.GetAsync("name1");
         var battleId = battle.Id;
         var command = new StartBattle()

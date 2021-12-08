@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Battlefield.Infrastructure;
+using Battlefield.Infrastructure.EventHandlers;
 using Battlefield.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var timeTicker = new TimeTicker();
+timeTicker.OnTimeTick(() => Console.WriteLine("Time tick!"));
+builder.Services.AddSingleton<ITimeTicker>(timeTicker);
+builder.Services.AddHostedService<TimeTickBackgroundService>();
 
 // Call ConfigureContainer on the Host sub property 
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
