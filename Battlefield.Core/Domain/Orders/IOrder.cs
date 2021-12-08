@@ -1,5 +1,7 @@
-﻿namespace Battlefield.Core.Domain.Orders;
+﻿using Battlefield.Core.Events;
+
+namespace Battlefield.Core.Domain.Orders;
 public interface IOrder
 {
-    void Execute(Battle battle, BattleUnit unit);
+    IEnumerable<IEvent> Execute(Battle battle, BattleUnit unit);
 }
