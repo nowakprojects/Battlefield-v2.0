@@ -22,6 +22,8 @@ namespace Battlefield.Core.Domain
             get { return _units; }
             set { _units = new HashSet<BattleUnit>(value); }
         }
+
+        private int _version = 0;
         
         // todo: change name to id
         public Battle(string name, Guid? id = null)
@@ -73,7 +75,9 @@ namespace Battlefield.Core.Domain
                     Apply(unitCreated);
                     break;
                 default: throw new ArgumentException("Unsupported event!");
-            };
+            }
+
+            _version++;
         }
         
         private void Apply(BattleStarted @event)
